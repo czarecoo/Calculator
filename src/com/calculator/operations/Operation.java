@@ -1,7 +1,7 @@
 package com.calculator.operations;
 
-import com.calculator.exceptions.DivisionByZeroException;
+import com.calculator.exceptions.OperationException;
 
 public interface Operation {
-	double apply(double firstNumber, double secondNumber) throws DivisionByZeroException;
+	abstract double apply(double firstNumber, double secondNumber) throws OperationException;
 }
