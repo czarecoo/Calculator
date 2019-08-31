@@ -1,14 +1,16 @@
-package com.calculator.userInput;
+package com.calculator.userinput;
 
+import java.util.Map;
 import java.util.Scanner;
 
-import com.calculator.operations.Addition;
-import com.calculator.operations.Division;
 import com.calculator.operations.Operation;
 
 public class UserInputHandler {
+	Scanner sc;
 
-	Scanner sc = new Scanner(System.in);
+	public UserInputHandler() {
+		sc = new Scanner(System.in);
+	}
 
 	public double getFirstDouble() {
 		return getDouble(sc, "Gimme double");
@@ -18,18 +20,12 @@ public class UserInputHandler {
 		return getDouble(sc, "Gimme another double");
 	}
 
-	public Operation getOperation() {
-		return getOperation(sc, "Now gimme + or /");
-	}
-
-	private Operation getOperation(Scanner sc, String s) {
+	public Operation getOperation(Map<String, Operation> allowedOperations) {
 		while (true) {
-			System.out.println(s);
-			switch (sc.nextLine()) {
-			case "+":
-				return new Addition();
-			case "/":
-				return new Division();
+			System.out.println("Now gimme one of those: " + allowedOperations.keySet());
+			String userInput = sc.nextLine();
+			if (allowedOperations.containsKey(userInput)) {
+				return allowedOperations.get(userInput);
 			}
 		}
 	}

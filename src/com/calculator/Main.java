@@ -1,20 +1,19 @@
 package com.calculator;
 
-import com.calculator.exceptions.DivisionByZeroException;
-import com.calculator.userInput.UserInputHandler;
+import com.calculator.exceptions.OperationException;
+import com.calculator.operations.Operation;
+import com.calculator.userinput.UserInputHandler;
 
 public class Main {
 	public static void main(String[] args) {
 		UserInputHandler userHandler = new UserInputHandler();
 		Calculator calculator = new Calculator(userHandler.getFirstDouble(), userHandler.getSecondDouble());
-		calculate(userHandler, calculator);
-	}
-
-	private static void calculate(UserInputHandler userHandler, Calculator calculator) {
+		Operation operation = userHandler.getOperation(calculator.getAllowedOperations());
 		try {
-			System.out.println(calculator.calculate(userHandler.getOperation()));
-		} catch (DivisionByZeroException e) {
+			System.out.println(calculator.calculate(operation));
+		} catch (OperationException e) {
 			System.err.println(e.getMessage());
 		}
+		System.out.println("Thank you, bye.");
 	}
 }
